@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.global.js"></script>
+</head>
+<body>
+<div id="app" class="demo"></div>   <!-- 1. 首先有个组件-->
+
+<script>
+    const app = Vue.createApp({         //2. 有个应用对象
+        data() {
+            return {count: 4};
+        }
+    })
+    const vm = app.mount('#app')        //3. app应用挂载到id为app的组件
+
+    document.write(vm.$data.count)
+    document.write("<br>")
+    document.write(vm.count)
+    document.write("<br>")
+    //修改vm.count的值也会更新$data.count
+    vm.count=5
+    document.write(vm.$data.count)
+    document.write("<br>")
+    //反之，修改$data.count的值也会更新到vm.count
+    vm.$data.count = 6
+    document.write(vm.count)
+
+</script>
+</body>
+</html>
