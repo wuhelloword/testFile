@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function loadXMLDoc(){
+            var xmlhttp;
+            var txt,x,i;
+            if (window.XMLHttpRequest){
+                xmlhttp=new XMLHttpRequest();
+            }
+            else {
+                xmlhttp = new ActiveXObject();
+            }
+            xmlhttp.onreadystatechange=function (){
+                if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                    xmlDoc=xmlhttp.responseXML;
+                    //解析xml
+                    txt="";
+                    x=xmlDoc.getElementsByTagName("ARTIST");
+                    for(i=0;i<x.length;i++){
+                        txt = txt + x[i].childNodes[0].nodeValue + "<br>";
+                    }
+                    document.getElementById("myDiv").innerHTML=txt;
+                }
+            }
+            xmlhttp.open("GET", "cdList.xml", true);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+我收藏的cd
+<div id="myDiv"></div>
+<button type="button" onclick="loadXMLDoc()">获取我的CD</button>
+</body>
+</html>
+
+<!--获取服务器的相应，使用XMLHttpRequest对象的responseText或responseXML属性-->
+<!--响应数据有两种：字符串形式的相应数据，XML形式的相应数据-->
