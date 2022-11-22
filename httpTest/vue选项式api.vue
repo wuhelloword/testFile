@@ -18,6 +18,7 @@ export default {
   //它们可以在模板中作为事件监听器绑定
   methods:{
     increment(){
+      //this指向当前组件实例，数据属性可以被修改
       this.count++
     }
   },
