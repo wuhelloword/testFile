@@ -1,24 +1,23 @@
 class ClassMale:
     def __init__(self):
         self.names = list()
+        self.counter = 0
 
     def add(self, name):
         self.names.append(name)
 
     def __iter__(self):
         # 如果想让一个对象成为可迭代对象，即可以使用for，那么必须实现__iter__方法
-        return ClassItrator()
+        return self
 
-
-
-
-class ClassItrator:
-    """被返回的对象"""
-    def __iter__(self):
-        pass
 
     def __next__(self):
-        pass
+        if self.counter < len(self.names):
+            result = self.names[self.counter]
+            self.counter += 1
+            return result
+        else:
+            raise StopIteration
 
 
 
