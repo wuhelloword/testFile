@@ -51,8 +51,11 @@ def scatter_inside(x, y, beta=0.15):
     :param beta: 强度
     :return: 新坐标
     """
-    ratio_x = -beta * log(random.random())      # 0到1的随机数的自然对数
-    ratio_y = -beta * log(random.random())
+    ratio_x = -beta * log(random.random(), 10)      # 0到1的随机数的自然对数
+    ratio_y = -beta * log(random.random(), 10)
+
+    if ratio_y > 0.1:
+        ratio_y -= (ratio_y * 10 % 10)*0.1
 
     dx = ratio_x * (x-CANVAS_CENTER_X)
     dy = ratio_y * (x-CANVAS_CENTER_Y)
@@ -105,14 +108,14 @@ class Heart:
 
     def build(self, number):
         for i in range(number):
-            t = random.uniform(0,2*pi)  # 随机不到的地方造成爱心有缺口
+            t = random.uniform(0, 2 * pi)  # 随机不到的地方造成爱心有缺口
             x, y = heart_function(t)
             self._points.add((x, y))
 
         # 爱心内扩散
         for _x, _y in list(self._points):
-            for _ in range(15):
-                x, y = scatter_inside(_x, _y, 0.25)
+            for _ in range(10):
+                x, y = scatter_inside(_x, _y, 0.35)
                 self._edge_diffusion_points.add((x, y))
 
         # 爱心内再次扩散
@@ -121,7 +124,8 @@ class Heart:
         for i in range(4000):
             x, y = random.choice(point_list)        # 返回point_list中的随机项
             x, y = scatter_inside(x, y, 0.15)
-            self._center_diffusion_points.add((x, y))
+            if x and y:
+                self._center_diffusion_points.add((x, y))
 
 
     @staticmethod
@@ -159,10 +163,10 @@ class Heart:
         # 轮廓
         for x, y in self._points:
             x,y = self.calc_position(x, y, ratio)
-            size = random.randint(1, 3)
+            size = random.randint(1, 2)
             all_points.append((x, y, size))
 
-        # 内容
+        # 内容，这里有问题了
         for x, y in self._edge_diffusion_points:
             x, y = self.calc_position(x,y,ratio)
             size = random.randint(1, 2)
