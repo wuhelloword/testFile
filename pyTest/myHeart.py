@@ -11,7 +11,8 @@ CANVAS_CENTER_Y = CANVAS_HEIGHT/2   # 画布中心位置
 # 放大比例
 IMAGE_ENLIARGE = 11         # 内层心的放大比例
 
-HEART_COLOR = "#FF7171"     # 心的颜色
+# HEART_COLOR = "#FF7171"     # 心的颜色
+HEART_COLOR = random.choice(["#FF7171","#fedcbd","#f15a22","#8a8c8e","#f47a55","#694d9f","#ffc20e","#78cdd1","#fffef9"])     # 心的颜色
 
 # (x²+y²-1)³+x²y³ = 0 心形线
 # x²z³+9y²z³/80=(x²+9y²/4+z²-1)³ 心形三维曲面
@@ -97,7 +98,7 @@ class Heart:
         self._center_diffusion_points = set()   # 中心扩散 效果点坐标集合
         self.all_points = {}        # 每帧动态点坐标
 
-        self.random_halo = 1000
+        # self.random_halo = 1000
         self.generate_frame = generate_frame
 
         self.build(2000)
@@ -166,7 +167,7 @@ class Heart:
             size = random.randint(1, 2)
             all_points.append((x, y, size))
 
-        # 内容，这里有问题了
+        # 内容
         for x, y in self._edge_diffusion_points:
             x, y = self.calc_position(x,y,ratio)
             size = random.randint(1, 2)
@@ -192,9 +193,22 @@ def draw(main:Tk,render_cavas:Canvas,render_heart:Heart,render_frame=0):
 
 
 
+def sirendizhi():
+    pass
+
+
+
 if __name__ == '__main__':
     root = Tk()
+
+    root.title("金毛帅哥的小心心")
+    root.iconbitmap("as1rl-5pgbe-001.ico")
+
+    # 设置全屏显示,没实现
+    root.attributes("-fullscreen", False)
+
     canvas = Canvas(root, bg="black", height=CANVAS_HEIGHT, width=CANVAS_WIDTH)
+
     canvas.pack()
     heart = Heart()
     draw(root, canvas, heart)
