@@ -6,8 +6,7 @@ class Fibonacci:
         self.a = 1
         self.b = 1
         self.num = num
-        self.fbnc_list.append(self.a)
-        self.fbnc_list.append(self.b)
+
 
     def __iter__(self):
         return self
@@ -21,7 +20,6 @@ class Fibonacci:
 
         if self.i < self.num:
             self.a, self.b = self.b, self.a+self.b
-            self.fbnc_list.append(self.b)
             self.i += 1
             return self.b
         else:
